@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Service Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Track Service Requests</h1>
+    {% csrf_token %}
+    {% if service_requests %}
+        <ul>
+        {% for request in service_requests %}
+            <li><strong>Request Type:</strong> {{ request.request_type }} - <strong>Status:</strong> {{ request.status }}</li>
+            <li><strong>Details:</strong> {{ request.details }}</li>
+            <li><strong>Submitted at:</strong> {{ request.submitted_at }}</li>
+            {% if request.resolved_at %}
+                <li><strong>Resolved at:</strong> {{ request.resolved_at }}</li>
+            {% endif %}
+            <hr>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No service requests found.</p>
+    {% endif %}
+</body>
+</html>
